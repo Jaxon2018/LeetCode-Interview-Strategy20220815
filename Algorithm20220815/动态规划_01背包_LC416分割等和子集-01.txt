@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool canPartition(vector<int>& nums) {
+        vector<int>weight;
+        vector<int>value;
+        weight.assign(nums.begin(), nums.end());
+        value.assign(nums.begin(), nums.end());
+
+        int sum = 0;
+        for(int i=0; i<nums.size(); ++i)
+        {            
+            sum += nums[i];
+        }
+        int bagWeight = sum/2;
+
+        // 初始化
+        vector<int> dp(bagWeight + 1, 0);
+        for(int i=0; i<weight.size(); ++i)
+        {
+            for(int j=bagWeight; j>=weight[i]; j--)
+            {
+                dp[j] = max(dp[j], value[i]+dp[j - weight[i]]);
+                cout<<dp[j]<<" ";
+            }
+            // cout<<endl;
+        }
+        // cout<<dp[bagWeight]<<endl;
+        cout<<"true";
+
+
+    }
+
+};

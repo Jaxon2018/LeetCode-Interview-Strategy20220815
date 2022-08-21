@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+        int m = obstacleGrid.size();
+        int n = obstacleGrid[0].size();
+        vector<vector<int> > obstacleGridmn;
+        vector<int> temp;
+        for(int i=0; i<m; ++i)
+        {            
+            for(int j=0; j<n; ++j)
+            {
+                if(obstacleGrid[i][j]==1)
+                {
+                    temp.push_back(i);
+                    temp.push_back(j);
+                    obstacleGridmn.push_back(temp); 
+                }                     
+            }            
+        }
+        // for (int i = 0; i < N; ++i) {
+        //     vector<int> temp;
+        //     for (int j = 0; j < M; ++j) {
+        //         tmp.push_back(xxx);
+        //     }
+        //     res.push_back(tmp);
+        // }
+
+
+        for(int i=0; i<obstacleGridmn.size(); ++i)
+        {
+            for(int j=0; j<obstacleGridmn[0].size(); ++j)
+            {
+                cout<<obstacleGridmn[i][j]<<" ";                    
+            }
+            cout<<endl;
+        }
+
+        vector<vector<int> > dp(m, vector<int>(n, 0));
+        for (int i = 0; i < m; i++) dp[i][0] = 1;
+        for (int j = 0; j < n; j++) dp[0][j] = 1;
+
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+};
